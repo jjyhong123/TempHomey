@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- Personal CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+
+</head>
+
+<body>
+
+    <div class="bg">
+
+        <div class="container">
+            <!-- 
+        <div class="container-fluid"> -->
+            <div class="jumbotron" id="dashBoard">
+                <div class="row content">
+                    <div class="col-sm-3 sidenav">
+                        <h4>Welcome back, <span class="name"></span>!</h4>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="/dashboard">Profile</a>
+                            </li>
+                            <li class="active">
+                                <a href="/account">Account Info</a>
+                            </li>
+                            <li>
+                                <a href="/matches">Your Matches</a>
+                            </li>
+                            <li>
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <h4>
+                            <small>Login Info</small>
+                        </h4>
+                        <hr>
+                        <h2>Account Details</h2>
+                        <br>
+                        <div class="container-fluid">
+                            <h4>Name: <span class="name"></span></h4>
+                            <h4>Email address: <span id="email"></span></h4>
+                            <h4>Phone number: <span id="phone"></span></h4>
+                            <h4>Age: <span id="age"></span></h4>
+                            <h4>Gender: <span id="gender"></span></h4>
+                            <h4>City: <span id="city"></span></h4>
+                            <h4>Zip: <span id="zip"></span></h4>
+                            <h4>Employed: <span id="employed"></span></h4>
+                            <h4>Job title: <span id="job"></span></h4>
+                            <h4>Budget: <span id="budget"></span></h4>
+                            <h4>List of hobbies: <span id="hobbies"></span></h4>
+                            <h4>Bio: <span id="bio"></span></h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    // EXTRACT USER INFO FROM DB
+    // ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    $.ajax({
+        url: "/api/users/currentuser",
+        type: "POST",
+        data: { email: sessionStorage.getItem("email") }
+    }).then(function (data) {
+        $(".name").text(data.username);
+        $("#email").text(data.email);
+        $("#phone").text(data.phone);
+        $("#age").text(data.age);
+        $("#gender").text(data.gender);
+        $("#city").text(data.city);
+        $("#zip").text(data.zip);
+        $("#employed").text(data.employed);
+        $("#job").text(data.jobTitle);
+        $("#budget").text(data.budget);
+        $("#hobbies").text(data.hobbies);
+        $("#bio").text(data.bio);
+    });
+    // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
+</script>
+
+</html>

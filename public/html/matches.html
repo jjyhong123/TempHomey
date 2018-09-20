@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>See mah homies</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Personal CSS -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+</head>
+
+<body>
+    <div class="bg">
+        <div class="container">
+            <div class="jumbotron">
+                <div class="row">
+                    <div class="col-12">
+                        <hr>
+                        <h2 class="text-center">My homies</h2>
+                        <hr>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <form>
+                            <div class="form-group">
+                                <label for="locationFilter">Filter by proximity (in miles):</label>
+                                <select multiple class="form-control" id="locationFilter">
+                                    <option class="zip">10</option>
+                                    <option class="zip">20</option>
+                                    <option class="zip">30</option>
+                                    <option class="zip">40</option>
+                                    <option class="zip">50</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-3">
+                        <form>
+                            <div class="form-group">
+                                <label for="mbtiFilter">Filter by MBTI compatibility:</label>
+                                <select multiple class="form-control" id="mbtiFilter">
+                                    <option class="mbti">Ideal compatibility</option>
+                                    <option class="mbti">Good compatibility</option>
+                                    <option class="mbti">Moderate compatibility</option>
+                                    <option class="mbti">Possible compatibility</option>
+                                    <option class="mbti">Low compatibility</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-3">
+                        <form>
+                            <div class="form-group">
+                                <label for="financeFilter">Filter by finance score:</label>
+                                <select multiple class="form-control" id="financeFilter">
+                                    <option class="finance">4</option>
+                                    <option class="finance">3</option>
+                                    <option class="finance">2</option>
+                                    <option class="finance">1</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-3">
+                        <form>
+                            <div class="form-group">
+                                <label for="cleanFilter">Filter by cleanliness score:</label>
+                                <select multiple class="form-control" id="cleanFilter">
+                                    <option class="clean">4</option>
+                                    <option class="clean">3</option>
+                                    <option class="clean">2</option>
+                                    <option class="clean">1</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="col-md-12 blog-container"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+    <!-- Custom Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
+
+</body>
+
+<script>
+
+    // CODE FOR FILTERING BY LOCATION 
+    // -----------------------------------------------
+    $(".zip").on("click", function () {
+        var radius = $("#locationFilter").val();
+        radius = radius[0];
+        var zip = sessionStorage.getItem("zip");
+
+        var queryURL = "https://api.zip-codes.com/ZipCodesAPI.svc/1.0/FindZipCodesInRadius?zipcode=" + zip + "&minimumradius=0&maximumradius=" + radius + "&key=Y23J3P9U38KMS91SX4TK";
+        // Creating an AJAX call to find array of all zip codes within the radius specified
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (resObj) {
+            var zipCodeArray = resObj.DataList.map(a => a.Code);
+
+            $.ajax({
+                url: "/api/users/zip",
+                type: "POST",
+                data: { zipCodeArray }
+            }).then(function (data) {
+                if (!data || !data.length || data.length === 1) {
+                    displayEmpty();
+                }
+                else {
+                    initializeRows(data);
+                }
+            });
+        });
+    });
+    // ----------------------------------------------
+
+    // CODE FOR FILTERING BY MBTI COMPATIBILITY
+    // ----------------------------------------------
+    $(".mbti").on("click", function () {
+        var compLevel = $("#mbtiFilter").val();
+        compLevel = compLevel[0];
+
+        var compArray = ["Low compatibility", "Possible compatibility", "Moderate compatibility", "Good compatibility", "Ideal compatibility"];
+        var compLevel_num = compArray.indexOf(compLevel) + 1;
+
+        var userMBTI = sessionStorage.getItem("MBTI"); // This is user's mbti
+        var typeArray = ["INFP", "ENFP", "INFJ", "ENFJ", "INTJ", "ENTJ", "INTP", "ENTP", "ISFP", "ESFP", "ISTP", "ESTP", "ISFJ", "ESFJ", "ISTJ", "ESTJ"];
+        var userMBTI_num = typeArray.indexOf(userMBTI);
+
+        const compTable = [
+            [4, 4, 4, 5, 4, 5, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1],
+            [4, 4, 5, 4, 5, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1],
+            [4, 5, 4, 4, 4, 4, 4, 5, 1, 1, 1, 1, 1, 1, 1, 1],
+            [5, 4, 4, 4, 4, 4, 4, 4, 5, 1, 1, 1, 1, 1, 1, 1],
+            [4, 5, 4, 4, 4, 4, 4, 5, 3, 3, 3, 3, 2, 2, 2, 2],
+            [5, 4, 4, 4, 4, 4, 5, 4, 3, 3, 3, 3, 3, 3, 3, 3],
+            [4, 4, 4, 4, 4, 5, 4, 4, 3, 3, 3, 3, 2, 2, 2, 5],
+            [4, 4, 5, 4, 5, 4, 4, 4, 3, 3, 3, 3, 2, 2, 2, 2],
+            [1, 1, 1, 5, 3, 3, 3, 3, 2, 2, 2, 2, 3, 5, 3, 5],
+            [1, 1, 1, 1, 3, 3, 3, 3, 2, 2, 2, 2, 5, 3, 5, 3],
+            [1, 1, 1, 1, 3, 3, 3, 3, 2, 2, 2, 2, 3, 5, 3, 5],
+            [1, 1, 1, 1, 3, 3, 3, 3, 2, 2, 2, 2, 5, 3, 5, 3],
+            [1, 1, 1, 1, 2, 3, 2, 2, 3, 5, 3, 5, 4, 4, 4, 4],
+            [1, 1, 1, 1, 2, 3, 2, 2, 5, 3, 5, 3, 4, 4, 4, 4],
+            [1, 1, 1, 1, 2, 3, 2, 2, 3, 5, 3, 5, 4, 4, 4, 4],
+            [1, 1, 1, 1, 2, 3, 5, 2, 5, 3, 5, 3, 4, 4, 4, 4],
+        ];
+
+        // In compTable[userMBTI_num], sweep through array extracting all indices where element matches compLevel_num
+        var arrayOfIndices = [];
+        var relevantArray = compTable[userMBTI_num];
+        for (let i = 0; i < relevantArray.length; i++) {
+            if (relevantArray[i] === compLevel_num) {
+                arrayOfIndices.push(i);
+            }
+        }
+
+        var desiredTypesArray = []; // This is array of acceptable MBTI types (in their numerical representation)
+        for (let i = 0; i < arrayOfIndices.length; i++) {
+            desiredTypesArray.push(typeArray[arrayOfIndices[i]]);
+        }
+
+        $.ajax({
+            url: "/api/users/personality",
+            type: "POST",
+            data: { desiredTypesArray }
+        }).then(function (data) {
+            if (!data || !data.length) {
+                displayEmpty();
+            }
+            else {
+                initializeRows(data);
+            }
+        });
+
+    });
+    // --------------------------------------------------------------
+
+    // CODE FOR FILTERING BY FINANCE SCORE
+    // --------------------------------------------------------------
+
+    $(".finance").on("click", function () {
+        var desiredFinance = $("#financeFilter").val();
+
+        $.get("/api/users/finance/" + desiredFinance + "", function (data) {
+            if (!data || !data.length) {
+                displayEmpty();
+            }
+            else {
+                initializeRows(data);
+            }
+        })
+    });
+    // --------------------------------------------------------------
+
+    // CODE FOR FILTERING BY CLEAN SCORE
+    // --------------------------------------------------------------
+
+    $(".clean").on("click", function () {
+        var desiredClean = $("#cleanFilter").val();
+
+        $.get("/api/users/clean/" + desiredClean + "", function (data) {
+            if (!data || !data.length) {
+                displayEmpty();
+            }
+            else {
+                initializeRows(data);
+            }
+        })
+    });
+    // --------------------------------------------------------------
+
+    // EXTRACT USER INFO FROM DB
+    // ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    $.ajax({
+        url: "/api/users/currentuser",
+        type: "POST",
+        data: { email: sessionStorage.getItem("email") }
+    }).then(function (data) {
+        sessionStorage.setItem("zip", data.zip);
+        sessionStorage.setItem("financeScore", data.financeScore);
+        sessionStorage.setItem("cleanScore", data.cleanScore);
+        sessionStorage.setItem("MBTI", data.personalityScore);
+    });
+    // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
+
+
+    // PAGE RENDERING STUFF
+    // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
+
+    // blogContainer holds all of our posts
+    var blogContainer = $(".blog-container");
+
+    // This function grabs posts from the database and updates the view
+    function getPosts() {
+        $.get("/api/users", function (data) {
+
+            if (!data || !data.length) {
+                displayEmpty();
+            }
+            else {
+                initializeRows(data);
+            }
+        });
+    }
+
+    // Getting the initial list of posts
+    getPosts();
+    // InitializeRows handles appending all of our constructed post HTML inside
+    // blogContainer
+    function initializeRows(posts) {
+        blogContainer.empty();
+        var postsToAdd = [];
+        for (var i = 0; i < posts.length; i++) {
+            if (posts[i].email !== sessionStorage.getItem("email")) {
+                postsToAdd.push(createNewRow(posts[i]));
+                postsToAdd.push("<br>");
+            }
+        }
+        blogContainer.append(postsToAdd);
+    }
+
+    // This function constructs a post's HTML
+    function createNewRow(post) {
+        var newPostCard = $("<div>");
+        newPostCard.addClass("card");
+
+        var newPostName = $("<span>");
+        var newPostGender = $("<span>");
+        var newPostAge = $("<span>");
+        var newPostEmail = $("<span>");
+        var newPostBio = $("<span>");
+        var newPostHobbies = $("<span>");
+        var newPostBudget = $("<span>");
+        var newPostJobTitle = $("<span>");
+        var newPostCity = $("<span>");
+        var newPostFinanceScore = $("<span>");
+        var newPostCleanScore = $("<span>");
+        var newPostMBTI = $("<span>");
+
+        newPostName.text("Name: " + post.username);
+        newPostGender.text("Gender: " + post.gender);
+        newPostAge.text("Age: " + post.age);
+        newPostEmail.text("Email: " + post.email);
+        newPostCity.text("City: " + post.city);
+        newPostBudget.text("Monthly budget: " + post.budget);
+        newPostJobTitle.text("Job title: " + post.jobTitle);
+        newPostFinanceScore.text("Finance score: " + post.financeScore);
+        newPostCleanScore.text("Clean score: " + post.cleanScore);
+        newPostMBTI.text("Personality: " + post.personalityScore);
+        newPostBio.text("Bio: " + post.bio);
+        newPostHobbies.text("Hobbies: " + post.hobbies);
+
+        newPostCard.append(newPostName);
+        newPostCard.append(newPostGender);
+        newPostCard.append(newPostAge);
+        newPostCard.append(newPostEmail);
+        newPostCard.append(newPostCity);  
+        newPostCard.append(newPostJobTitle);  
+        newPostCard.append(newPostBudget);
+        newPostCard.append("<br>");
+        newPostCard.append(newPostFinanceScore);
+        newPostCard.append(newPostCleanScore);
+        newPostCard.append(newPostMBTI);
+        newPostCard.append("<br>");
+        newPostCard.append(newPostBio);
+        newPostCard.append(newPostHobbies);
+
+        newPostCard.data("post", post);
+
+        return newPostCard;
+    }
+
+    // This function displays a message when there are no posts
+    function displayEmpty() {
+        blogContainer.empty();
+        var messageH2 = $("<h2>");
+        messageH2.css({ "text-align": "center", "margin-top": "50px" });
+        messageH2.html("No users yet.");
+        blogContainer.append(messageH2);
+    }
+// --------------------------------------
+</script>
+
+</html>

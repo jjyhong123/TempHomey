@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Animate remote CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- Personal CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+
+</head>
+
+<body>
+
+    <div class="bg">
+
+        <div class="container">
+        <div class="container-fluid"> -->
+            <div class="jumbotron animated bounceInDown" id="dashBoard">
+                <div class="row content">
+                    <div class="col-sm-3 sidenav">
+                        <h4>Welcome back, <span id="name"></span>!</h4>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active">
+                                <a href="/dashboard">Profile</a>
+                            </li>
+                            <li>
+                                <a href="/account">Account Info</a>
+                            </li>
+                            <li>
+                                <a href="/matches">Your Matches</a>
+                            </li>
+                            <li>
+                                <a href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-9">
+                        <h4>
+                            <small>Personal Info</small>
+                        </h4>
+                        <hr>
+                        <h2>Profile Details</h2>
+                        <br>
+                        <div class="text-center">
+                            <a href="https://placeholder.com">
+                                <img src="https://via.placeholder.com/150x150">
+                            </a>
+                        </div>
+                        <br>
+                        <div class="container text-center">
+                            <h4>Cleanliness Score: <span id="cleanScore"></span></h4>
+
+                            <h4>Financial Score: <span id="financeScore"></span></h4>
+
+                            <h4>Personality Score: <span id="personalityScore"></span></h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    // EXTRACT USER INFO FROM DB
+    // ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    $.ajax({
+        url: "/api/users/currentuser",
+        type: "POST",
+        data: { email: sessionStorage.getItem("email") }
+    }).then(function (data) {
+        $("#name").text(data.username);
+        $("#cleanScore").text(data.cleanScore);
+        $("#financeScore").text(data.financeScore);
+        $("#personalityScore").text(data.personalityScore);
+    });
+    // ----------------------------------------------------------------
+    // ----------------------------------------------------------------
+</script>
+
+</html>

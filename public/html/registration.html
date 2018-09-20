@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registration Page</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- Personal CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+
+</head>
+
+<body>
+
+    <div class="bg">
+
+        <div class="container">
+
+            <div class="jumbotron" id="regPage">
+
+                <hr>
+                <h2 class="text-center">Tell us a little bit about yourself</h2>
+                <hr>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="John Doe">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="email">Email Address</label>
+                            <input type="text" class="form-control" id="email" placeholder="123@gmail.com">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" type="hidden" placeholder="your password, duh">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="phoneNumber">Phone number</label>
+                            <input type="phoneNumber" class="form-control" id="phoneNumber" placeholder="111-111-1111">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="age">Age</label>
+                            <input type="text" class="form-control" id="age">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="zip">Zip</label>
+                            <input type="text" class="form-control" id="zip">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-2">
+                            <label for="employed">Employed</label>
+                            <select id="employed" class="form-control">
+                                <option selected>Choose...</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" class="form-control" id="jobTitle">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="budget">Monthly Budget</label>
+                            <input type="text" class="form-control" id="budget">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="gender">Gender</label>
+                            <input type="text" class="form-control" id="gender">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="hobbies">List of hobbies</label>
+                        <textarea class="form-control" id="hobbies" rows="2"></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="bio">Bio</label>
+                        <textarea class="form-control" id="bio" rows="3" placeholder="My name is John. I'm looking for the roommate of my dreams..."></textarea>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="register">Register</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+<script src="../js/index.js"></script>
+
+</html>

@@ -1,0 +1,44 @@
+<div class="bg">
+    <div class="container">
+        <div class="jumbotron" id="clean">
+
+            <hr>
+            <h2 class="text-center">Complete this short, judgment-free assessment of your hygiene values to obtain your cleanliness score.</h2>
+            <hr>
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <ol type="1">
+                        {{#each questions}}
+                        <div class="question">
+                            <li>
+                                <strong>
+                                    {{question}}
+                                </strong>
+                            </li>
+                        </div>
+
+                        <ol type="a">
+                            {{#each options}}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="cleanlinessQuestion{{@../index}}" id="radio{{@index}}" value={{@index}}>
+                                <label style="font-weight:normal;" class="form-check-label" for="radio{{@index}}">
+                                    {{this}}
+                                </label>
+                            </div>
+                            {{/each}}
+                            <br>
+                        </ol>
+
+                        {{/each}}
+                    </ol>
+
+                    <button type="button" class="btn btn-primary" id="submitCleanliness">Submit</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

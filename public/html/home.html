@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home Page</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Animate remote CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- Personal CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+
+</head>
+
+
+<body>
+
+    <div class="modal" id="modal-invalidPassword" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Oops!</h5>
+                    <span aria-hidden="true">&#9785;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Invalid password. Please try again</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-incorrectLogin" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Oops!</h5>
+                    <span aria-hidden="true">&#9785;</span>
+                </div>
+                <div class="modal-body">
+                    <p>Username does not exist. Please try again</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg">
+
+        <div class="container">
+
+            <div class="jumbotron animated bounce" id="homePage">
+                <img class="img-responsive" src="../images/HomeyHelpLogo.JPG">
+                <!-- <h1>
+                <i class="fas fa-user-friends" aria-hidden="true"></i> HomeyHelp</h1> -->
+                <hr>
+                <h3>Answer a questionnaire. </h3>
+                <h3>Then find the roommate with the greatest compatibility!</h3>
+                <hr>
+
+                <h3>Login</h3>
+
+                <form>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="emailLogin">Email</label>
+                            <input type="text" class="form-control" id="emailLogin" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="passwordLogin">Password</label>
+                            <input type="password" class="form-control" id="passwordLogin" type="hidden" placeholder="Password">
+                        </div>
+                    </div>
+
+                </form>
+
+                <footer class="footer">
+                    <div class="container">
+                        <p id="newLogin">
+                            <a href="/registration">
+                                <i class="fas fa-question-circle"></i> New user? Create new login</a>
+                        </p>
+                    </div>
+                </footer>
+
+                <div>
+                    <button type="button" class="btn btn-lg btn-primary" id="loginBtn">
+                        <h4>
+                            <span class="glyphicon glyphicon-list-alt"></span> Sign in</h4>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bg_load"></div>
+    <div class="wrapper">
+        <div class="inner">
+            <span>L</span>
+            <span>o</span>
+            <span>a</span>
+            <span>d</span>
+            <span>i</span>
+            <span>n</span>
+            <span>g</span>
+        </div>
+    </div>
+
+</body>
+<script>
+        $(window).load(function () {
+            $(".bg_load").fadeOut("slow");
+            $(".wrapper").fadeOut("slow");
+        })
+    </script>
+<script src="../js/index.js"></script>
+
+</html>

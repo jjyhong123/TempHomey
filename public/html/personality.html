@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Personality Assessment Page</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- Personal CSS file -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/styles.css" />
+
+</head>
+
+<body>
+
+    <div class="bg">
+
+        <div class="container">
+
+            <div class="jumbotron" id="personalityPage">
+                <hr>
+                <h2 class="text-center">Good housemates are also good homies.</h2>
+                <hr>
+                <h4 class="text-center">We use your MBTI personality type to match you up with the most compatible housemates.</h4>
+                <br>
+                <br>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="mbti">If you know your MBTI type, enter it here:</label>
+                            <input type="text" class="form-control" id="mbti" placeholder="Ex: ISTJ">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label>If you don't yet know your MBTI type, take this short assessment to determine your type:</label>
+                            <br>
+                            <a href="https://www.16personalities.com/free-personality-test" target="_blank">Find my MBTI type!</a>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="submitPersonality">Show me my matches</button>
+
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+<script src="../js/index.js"></script>
+
+</html>
